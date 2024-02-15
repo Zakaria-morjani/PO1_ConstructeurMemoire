@@ -25,8 +25,8 @@ namespace PO1_ConstructeurMemoire
 
         private void button_ajouterJoueur_Click(object sender, EventArgs e)
         {
-            bool erreur = false;
-            Equipe equipeNouveauJoueur;//???
+            bool erreur = false;                                                            // on peut aussi ecrir apres as Equipe ca marchera pareil
+            Equipe equipeNouveauJoueur = (Equipe)comboBox_ajouterJoueurEquipe.SelectedItem; //transforme en equipe fait moi comnfiance c est une equipe mais sit u mets pas une equipe ca marchera pas 
             if(equipeNouveauJoueur == null)
             {
                 errorProvider_ajouterJoueur.SetError(comboBox_ajouterJoueurEquipe, "Veuillez choisir une équipe");
@@ -48,7 +48,9 @@ namespace PO1_ConstructeurMemoire
             }
             if (!erreur)
             {
-               ///???
+                Joueur nouveauJoueur = new Joueur(nomNouveauJoueur, equipeNouveauJoueur);
+                joueurs.Add(nouveauJoueur);
+                bindingSourceListboxJoueurs.ResetBindings(false); //actualise le listbox pour voir ce qu il y a dedans 
             }
             
         }
@@ -56,7 +58,7 @@ namespace PO1_ConstructeurMemoire
         private void button_modifierEquipeNom_Click(object sender, EventArgs e)
         {
             bool erreur = false;
-            Equipe equipeAModifier;// ???
+            Equipe equipeAModifier = listBox_equipes.SelectedItem as Equipe;
             if(equipeAModifier == null)
             {
                 errorProvider_modifierEquipe.SetError(listBox_equipes, "Veuillez choisir une équipe");
@@ -78,16 +80,23 @@ namespace PO1_ConstructeurMemoire
             }
             if (!erreur)
             {
-               //???
+                equipeAModifier.Nom = nouveauNomEquipe;
+                bindingSourceListboxEquipes.ResetBindings(false);
+                bindingSourceComboBoxEquipes.ResetBindings(false);
+                bindingSourceListboxJoueurs.ResetBindings(false);
             }
 
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //equipes.Add(new Equipe("Oilers", "Edmonton")); //Connor McDavid Leon Draisaitl
-            //equipes.Add(new Equipe("Canadiens", "Montreal"));//Cole Caufield
-            //equipes.Add(new Equipe("Jets", "Winnipeg"));//Mark Scheifele
+            equipes.Add(new Equipe("Oilers", "Edmonton")); //Connor McDavid Leon Draisaitl
+            equipes.Add(new Equipe("Canadiens", "Montreal"));//Cole Caufield
+            equipes.Add(new Equipe("Jets", "Winnipeg"));//Mark Scheifele
+
+            //Equipe nouvelEquipe = new Equipe("Bruins", "Boston"); meme chose que les lignes d avant mais en plus long 
+            //equipes.Add(nouvelEquipe);
+
             bindingSourceListboxEquipes.ResetBindings(false);
             bindingSourceComboBoxEquipes.ResetBindings(false);
             bindingSourceListboxJoueurs.ResetBindings(false);
